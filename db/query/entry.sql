@@ -1,19 +1,19 @@
--- -- name: CreateEntry :exec
--- INSERT INTO entry (
---   accountId,
---   amount
--- ) VALUES (
---   $1, $2 
--- )
--- RETURNING *;
+-- name: CreateEntry :one
+INSERT INTO entries (
+  account_id,
+  amount
+) VALUES (
+  $1, $2
+) RETURNING *;
 
--- -- name: GetEntries :many
--- SELECT * FROM entry
--- WHERE accountId = $1
--- ORDER by id;
+-- name: GetEntry :one
+SELECT * FROM entries
+WHERE id = $1 LIMIT 1;
 
--- -- -- name: UpdateEntry :exec
--- -- UPDATE authors SET bio = $2
--- -- WHERE id = $1;
-
+-- name: ListEntries :many
+SELECT * FROM entries
+WHERE account_id = $1
+ORDER BY id
+LIMIT $2
+OFFSET $3;
 
