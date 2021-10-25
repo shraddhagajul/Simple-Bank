@@ -8,11 +8,11 @@ INSERT INTO accounts (
 )
 RETURNING *;
 
--- name: GetAccount :many
+-- name: GetAccount :one
 SELECT * FROM accounts
 WHERE id = $1 LIMIT 1;
 
--- name: ListAuthors :many
+-- name: ListAccounts :many
 SELECT * FROM accounts
 ORDER BY id
 LIMIT $1
@@ -24,5 +24,5 @@ SET balance = $2
 WHERE id = $1
 RETURNING *;
 
--- name: DeleteAuthor :exec
+-- name: DeleteAccount :exec
 DELETE FROM accounts WHERE id = $1;
